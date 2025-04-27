@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import  EdupairLogo from '../../assets/edu-pair.png'
+import { API_URL } from '../../constants';
 
 function Dashboard() {
   const [userData, setUserData] = useState(null);
@@ -28,7 +29,7 @@ function Dashboard() {
       }
 
       try {
-        const response = await fetch('http://localhost:5000/dashboard', {
+        const response = await fetch(`${API_URL}dashboard`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -52,7 +53,7 @@ function Dashboard() {
     const fetchEnrolledSessions = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch('http://localhost:5000/sessions/enrolled', {
+        const response = await fetch(`${API_URL}enrolled`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

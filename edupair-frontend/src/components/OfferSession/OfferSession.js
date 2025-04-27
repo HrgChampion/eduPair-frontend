@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { API_URL } from '../../constants';
 function OfferSession() {
   const [sessionData, setSessionData] = useState({
     title: '',
@@ -27,7 +27,7 @@ function OfferSession() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/offer-session', {
+      const response = await fetch(`${API_URL}offer-session`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

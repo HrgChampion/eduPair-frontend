@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../../constants';
 
 function Profile() {
   const [userData, setUserData] = useState(null);
@@ -19,7 +20,7 @@ function Profile() {
       }
 
       try {
-        const response = await fetch('http://localhost:5000/me', {
+        const response = await fetch(`${API_URL}me`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -50,7 +51,7 @@ function Profile() {
     const updatedData = { bio, skills, interests };
 
     try {
-      const response = await fetch('http://localhost:5000/profile', {
+      const response = await fetch(`${API_URL}profile`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

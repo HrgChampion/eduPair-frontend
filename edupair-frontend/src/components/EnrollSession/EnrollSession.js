@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { API_URL } from '../../constants';
 function EnrollSession() {
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +11,7 @@ function EnrollSession() {
     const fetchSessions = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:5000/sessions', {
+        const res = await fetch(`${API_URL}sessions`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -38,7 +38,7 @@ function EnrollSession() {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/sessions/${sessionId}/enroll`, {
+      const response = await fetch(`${API_URL}sessions/${sessionId}/enroll`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

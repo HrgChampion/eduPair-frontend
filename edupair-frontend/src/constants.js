@@ -1,0 +1,1 @@
+export const API_URL = 'https://edu-pair-backend-d1c18e1f31f1.herokuapp.com/'; // Base URL for the API
