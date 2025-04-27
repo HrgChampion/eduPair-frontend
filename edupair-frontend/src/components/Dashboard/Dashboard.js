@@ -53,7 +53,7 @@ function Dashboard() {
     const fetchEnrolledSessions = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch(`${API_URL}enrolled`, {
+        const response = await fetch(`${API_URL}sessions/enrolled`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,
