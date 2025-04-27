@@ -1,0 +1,20 @@
+/* Custom styles for the slick carousel */
+.slick-slide {
+    display: flex;
+    justify-content: center; /* Centers the slides */
+  }
+  
+  .slick-prev, .slick-next {
+    font-size: 2rem; /* Adjust size of arrows */
+    color: white; /* Make the arrows white */
+    z-index: 1; /* Make sure arrows are on top of content */
+  }
+  
+  .slick-prev {
+    left: -40px; /* Adjust arrow position */
+  }
+  
+  .slick-next {
+    right: -40px; /* Adjust arrow position */
+  }
+  
