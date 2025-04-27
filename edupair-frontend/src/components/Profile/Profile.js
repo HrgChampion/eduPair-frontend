@@ -37,7 +37,7 @@ function Profile() {
         setError(data.message || 'Failed to load user data');
       }
     } catch (err) {
-      setError('Error connecting to server');
+      setError('Error connecting to server'); 
     } finally {
       setLoading(false);
     }
