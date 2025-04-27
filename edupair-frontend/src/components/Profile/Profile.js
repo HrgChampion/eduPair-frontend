@@ -11,41 +11,43 @@ function Profile() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // Fetch user data from API
+  const fetchUserData = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_URL}me`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setUserData(data);
+        setBio(data.bio || '');
+        setSkills(data.skills || []);
+        setInterests(data.interests || []);
+      } else {
+        setError(data.message || 'Failed to load user data');
+      }
+    } catch (err) {
+      setError('Error connecting to server');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchUserData = async () => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        navigate('/login');
-        return;
-      }
-
-      try {
-        const response = await fetch(`${API_URL}me`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-
-        const data = await response.json();
-        if (response.ok) {
-          setUserData(data);
-          setBio(data.bio || '');
-          setSkills(data.skills || []);
-          setInterests(data.interests || []);
-        } else {
-          setError(data.message || 'Failed to load user data');
-        }
-      } catch (err) {
-        setError('Error connecting to server');
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchUserData();
   }, [navigate]);
 
+  // Handle profile update
   const handleUpdateProfile = async () => {
     const token = localStorage.getItem('token');
     const updatedData = { bio, skills, interests };
@@ -62,6 +64,8 @@ function Profile() {
 
       const data = await response.json();
       if (response.ok) {
+        // Re-fetch user data after successful update
+        fetchUserData();
         navigate('/dashboard'); // Redirect to dashboard after profile update
       } else {
         setError(data.message || 'Failed to update profile');
